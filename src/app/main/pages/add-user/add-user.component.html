@@ -1,0 +1,65 @@
+<div id="new_branch" class="page-layout simple  tabbed">
+    <h1 class="p-16"> Add New User</h1>
+
+    <div id="" class="p-24" fxLayout="row wrap">
+        <form name="providerForm" class="d-flex flex-column   my-10" [formGroup]="UserForm" novalidate  #myForm>
+            <h1 *ngIf="decoded?.admin == true">Add New User</h1>
+            <h1 *ngIf="decoded?.salesRep == true">Add New Service Provider</h1>
+
+            <div class="new_branch">
+                <mat-form-field appearance="outline" class="">
+                    <mat-label><span class="start">*</span>First Name</mat-label>
+                    <input matInput formControlName="first_name"  >
+                    <mat-error>
+                        First name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label><span class="start">*</span>Last Name</mat-label>
+                    <input matInput formControlName="last_name">
+                    <mat-error>
+                        Last name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label><span class="start">*</span>Email</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-error>
+                        Email is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label><span class="start">*</span>Phone</mat-label>
+                    <input matInput formControlName="phone">
+                    <mat-error>
+                        Phone is required
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <mat-form-field appearance="outline" class="w-100-p">
+                        <mat-label><span class="start">*</span>Select User type</mat-label>
+                        <mat-select formControlName="user_type" placeholder="Select">
+                            <mat-option value="normal">User</mat-option>
+                            <mat-option value="servicePro">Service Provider</mat-option>
+                            <mat-option value="admin">Admin</mat-option>
+                            <mat-option value="driver">Driver</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            User type is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <button mat-raised-button color="accent" class="submit-button w-100-p" aria-label="ADD"
+                        [disabled]="UserForm.invalid  " (click)="onSubmit()">
+                    Add User
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div>

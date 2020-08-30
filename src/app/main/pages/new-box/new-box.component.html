@@ -1,0 +1,196 @@
+<div class="page-layout simple tabbed" id="new_branch">
+
+    <div class="p-24" fxLayout="row wrap" id="">
+        <form [formGroup]="productForm" class="d-flex flex-column w-50-p  mb-16" name="providerForm" novalidate>
+            <h1 *ngIf="id == 0">Add New Box</h1>
+            <h1 *ngIf="id != 0">Edit Box</h1>
+            <div class="new_deal">
+                <mat-form-field class="category " appearance="outline">
+                    <mat-label><span class="star">*</span> Select Category</mat-label>
+                    <mat-select formControlName="category_id">
+                        <ng-container *ngFor="let item of categories">
+                            <mat-option  [value]="item.category_id" *ngIf="item.name_en == 'Boxes'">
+                                {{item.name_en}}
+                            </mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <mat-error>
+                        <div
+                            *ngIf="f.category_id.invalid && (f.category_id.dirty || f.category_id.touched) && f.category_id.errors?.required"
+                            class="text-danger">
+                            Category is required
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="category " appearance="outline" *ngIf="this.decoded.user_type === 'admin'">
+                    <mat-label><span class="star">*</span> Select Store</mat-label>
+                    <mat-select formControlName="farmer_id">
+                        <mat-option *ngFor="let item of farmers" [value]="item.farmer_id" (onSelectionChange)="filter.farmer_id = item.farmer_id ; getProducts()">
+                            {{item.title_en}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <div
+                            *ngIf="f.farmer_id.invalid && (f.farmer_id.dirty || f.farmer_id.touched) && f.farmer_id.errors?.required"
+                            class="text-danger">
+                            Framer is required
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label><span class="star">*</span>English Product title</mat-label>
+                    <input formControlName="title_en" #name_en matInput >
+<!--                    <mat-hint align="end">{{name_en.value.length}} / 30</mat-hint>-->
+                    <mat-error>
+                        English title is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label><span class="star">*</span> Arabic Product title</mat-label>
+                    <input formControlName="title_ar" #name_ar matInput >
+<!--                    <mat-hint align="end">{{name_ar.value.length}} / 30</mat-hint>-->
+                    <mat-error>
+                        Arabic title is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label><span class="star">*</span> English Box Description</mat-label>
+                    <textarea formControlName="description_en" matInput #desc_en minlength="10" rows="4"
+                              placeholder="minimum 10 characters"></textarea>
+                    <mat-hint align="end">{{desc_en.value.length}} </mat-hint>
+                    <mat-error *ngIf="desc_en.value.length <= 0">
+                        English Description is required
+                    </mat-error>
+                    <mat-error *ngIf="desc_en.value.length < 10 && desc_en.value.length > 0">
+                        Please enter up to 10 chararcters.
+                    </mat-error>
+
+
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label><span class="star">*</span> Arabic Box Description</mat-label>
+                    <textarea formControlName="description_ar" matInput #desc_ar minlength="10" rows="4"
+                              placeholder="minimum 10 characters"></textarea>
+                    <mat-hint align="end">{{desc_ar.value.length}}</mat-hint>
+
+                    <mat-error *ngIf="desc_ar.value.length <= 0">
+                        Arabic Description is required
+                    </mat-error>
+                    <mat-error *ngIf="desc_ar.value.length < 10 && desc_ar.value.length > 0">
+                        Please enter up to 10 chararcters.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="category " appearance="outline">
+                <mat-label><span class="star">*</span> Select Origin</mat-label>
+                <mat-select formControlName="country_id">
+                    <mat-option *ngFor="let item of countries" [value]="item.country_id" >
+                        {{item.name_en}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    <div *ngIf="f.country_id.invalid && (f.country_id.dirty || f.country_id.touched) && f.country_id.errors?.required"
+                         class="text-danger">
+                        Country is required
+                    </div>
+                </mat-error>
+            </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label><span class="star">*</span> Select Type</mat-label>
+                    <mat-select formControlName="type_id" >
+                        <mat-option *ngFor="let item of types" [value]="item.type_id" (click)="filter.type = +item.type_id ;  getProducts()">
+                            {{item.name_en}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+<!--                <div>-->
+<!--                    <div *ngFor="let item of productsBox">{{item?.Product.name}}</div>-->
+<!--                </div>-->
+                <div>
+                    <ng-multiselect-dropdown class="bg-white text-left"
+                                             [placeholder]="'* Select Products'"
+                                             [data]="products"
+                                             [settings]="dropdownSettings"
+                                             (onSelect)="onItemSelect($event)"
+                                             (onDeSelect)="onItemDeSelect($event)"
+                                             (onSelectAll)="onSelectAll($event)"
+                    >
+                    </ng-multiselect-dropdown>
+                </div>
+                <mat-form-field appearance="outline" class="w-50-p mt-8">
+                    <mat-label><span class="star">*</span> Quantity</mat-label>
+                    <input formControlName="quantity" matInput type="number">
+                    <mat-error>
+                        Price is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-50-p mt-8">
+                    <mat-label><span class="star">*</span> Unit</mat-label>
+                    <mat-select formControlName="unit_id" name="unit_id">
+                        <mat-option *ngFor="let item of unites" [value]="item.unit_id">
+                            {{item.name_en}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p mt-8">
+                    <mat-label><span class="star">*</span> Price</mat-label>
+                    <input formControlName="price" matInput type="number">
+                    <mat-error>
+                        Price is required
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="my-16 px-16">
+                    <mat-checkbox formControlName="discount">Discount
+                    </mat-checkbox>
+                </div>
+                <mat-form-field appearance="outline" class="w-100-p mt-8" *ngIf="f.discount.value == true">
+                    <mat-label><span class="star">*</span>New Price</mat-label>
+                    <input formControlName="new_price" matInput type="number">
+                    <mat-error>
+                        New Price is required
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="my-16" *ngIf="id != 0">
+                    <mat-radio-group aria-label="Select an option ">
+                        <mat-radio-button class="mx-16" [checked]="f.active.value == 1" (click)="f.active.setValue(1)"
+                                          value="1">Active
+                        </mat-radio-button>
+                        <mat-radio-button [checked]="f.active.value == 0" (click)="f.active.setValue(0)" value="0">
+                            Unactive
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+<!--                <div class="my-16 px-16" *ngIf="decoded?.user_type=='admin'">-->
+<!--                    <mat-checkbox formControlName="featured">Featured</mat-checkbox>-->
+<!--                </div>-->
+                <div class="upload-file form-group mt-24">
+                    <h3><span class="required-star">*</span> Upload image</h3>
+                    <div class="form-group">
+                        <button (click)="openDialog()" class="submit-button   upload " name="image">Upload Image
+                        </button>
+                    </div>
+
+                    <div class="my-8 ">
+                        <img [src]="restService.baseUrl + f.image.value" alt="">
+                    </div>
+                </div>
+                <!--                || ( f.discount.value == false && f.new_price.value) || (f.discount.value == true && !f.new_price.value)-->
+                <button (click)="AddProduct()" aria-label="ADD" [disabled]="productForm.invalid "
+                        class="submit-button w-100-p mt-24" color="accent" *ngIf="id == 0 "
+                        mat-raised-button>
+                    Add Product
+                </button>
+                <button (click)="updateProduct()" aria-label="ADD" [disabled]="productForm.invalid"
+                        class="submit-button w-100-p mt-24" color="accent" *ngIf="id != 0"
+                        mat-raised-button>
+                    Update Product
+                </button>
+
+            </div>
+        </form>
+    </div>
+
+</div>

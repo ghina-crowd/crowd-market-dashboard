@@ -1,0 +1,33 @@
+.info-line{
+    display: flex;
+    flex-direction: row;
+    height: 6rem;
+}
+
+.accent{
+    height: 5rem;
+    background-color: #039be5 !important;
+    color: white !important;
+    border-radius: 5px;
+    padding: 0 15px;
+}
+
+.options{
+    background: white;
+    padding: 18px;
+    border-radius: 15px;
+}
+
+.title{
+    font-weight: bold;
+}
+
+
+.images img{
+    width: 5rem;
+    height: 5rem;
+}
+
+.buttons{
+    display: flex;
+}

@@ -1,0 +1,24 @@
+<div class="page-layout simple tabbed" id="new_branch">
+    <div class="p-24" fxLayout="row wrap" id="">
+        <h1 class="mb-24">Notifications</h1>
+        <div class="w-100-p mt-48 text-center" *ngIf="restService.allNotifications.length == 0"><h3>Empty Notifications</h3></div>
+        <div class="w-100-p mt-16"   style="cursor: pointer" *ngFor="let item of restService.allNotifications" [ngClass]="item.read? '' : 'bg-gray'" [routerLink]="restService.baseUrl + item.action" (click)="restService.updateNotification(item)">
+            <div class="border-bottom row">
+                <div class="my-auto mx-16">
+                    <mat-icon class="s-16">drag_handle</mat-icon>
+                </div>
+                <div class="mb-8">
+                    <h3 class="title my-4">{{item?.title}}</h3>
+                    <div class="notes">{{item?.message}}</div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="restService.notifications.length >= 20 "
+             class="search-results"
+             infiniteScroll
+             [infiniteScrollDistance]="2"
+             [infiniteScrollThrottle]="50"
+             (scrolled)="getNotification()"
+        ></div>
+    </div>
+</div>

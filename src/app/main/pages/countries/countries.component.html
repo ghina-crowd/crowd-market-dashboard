@@ -1,0 +1,70 @@
+<div id="new_branch" class="page-layout simple tabbed countries">
+    <h1 class="px-28 py-8">Countries</h1>
+
+    <div id="" class="w-100-p p-16 " fxLayout="row wrap">
+        <div class="w-100-p">
+            <mat-form-field class="w-50-p p-16">
+                <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
+
+            </mat-form-field>
+            <button aria-label="EDIT" class="submit-button float-right add-button" color="accent" mat-raised-button
+                    (click)="openAddDialog()">
+                <img src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add New Country
+            </button>
+        </div>
+        <table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p p-16" mat-table>
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="country_id" class="deal_id">
+                <th *matHeaderCellDef mat-header-cell> No.</th>
+                <td *matCellDef="let element" mat-cell> {{element.country_id}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name_en">
+                <th *matHeaderCellDef mat-header-cell> English title</th>
+                <td *matCellDef="let element" mat-cell> {{element.name_en}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="name_ar">
+                <th *matHeaderCellDef mat-header-cell> Arabic title</th>
+                <td *matCellDef="let element" mat-cell> {{element.name_ar}} </td>
+            </ng-container>
+            <ng-container matColumnDef="image" >
+                <th *matHeaderCellDef mat-header-cell> Image</th>
+                <td *matCellDef="let element" mat-cell class="image">
+                    <img [src]="restService.baseUrl + element.image" alt="">
+                </td>
+            </ng-container>
+            <!-- Weight Column -->
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="action">
+                <th *matHeaderCellDef mat-header-cell> Action</th>
+                <td *matCellDef="let element" mat-cell class="py-8">
+                    <button aria-label="EDIT" class="submit-button m-4" color="accent" mat-raised-button
+                            (click)="openEditDialog(element)" >
+                        Edit
+                    </button>
+                    <button aria-label="details" *ngIf="element.active == 0" class="submit-button m-4" color="accent"
+                            mat-raised-button (click)="confirmeRemove(element , 1)">
+                        Active
+                    </button>
+                    <button aria-label="details" *ngIf="element.active == 1" class="submit-button m-4" color="accent"
+                            mat-raised-button (click)="confirmeRemove(element , 0)">
+                        Unactive
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+        </table>
+
+
+    </div>
+
+
+</div>

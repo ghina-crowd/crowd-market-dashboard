@@ -1,0 +1,50 @@
+.meals img{
+    width: 8rem;
+    object-fit: cover;
+}
+
+td, th{
+    padding: 10px !important;
+
+}
+
+.meals .filter{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+ .meals .autocomplete input{
+    height: 4.5rem;
+    border: 1px solid black;
+    border-radius: 10px;
+
+ }
+
+ .meals .autocomplete{
+     padding: 0 10px !important;
+
+ }
+
+
+::ng-deep   .meals .mat-form-field-wrapper{
+    width: 90% !important;
+}
+
+.meals form{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+::ng-deep .meals .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0.5em 0 1em 0;
+}
+
+.meals form button{
+    height: 4rem;
+}
+
+.category{
+    width: 20rem;
+}

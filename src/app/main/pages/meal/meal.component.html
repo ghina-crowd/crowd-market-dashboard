@@ -1,0 +1,135 @@
+<div class="page-layout simple tabbedm p-16 meals" id="deals">
+    <h1>Products</h1>
+    <div class="filter">
+        <div class="filter w-75-p">
+            <form [formGroup]="filterForm" class="text-center w-100-p "  >
+                <div class="">
+                    <mat-form-field class="  filter "  appearance="outline">
+                        <mat-label>Search By Title</mat-label>
+                        <input (keyup)="filter.keyword = $event.target.value ;applyFilter()" matInput
+                               placeholder="Search By Title" class="" style="text-align: right">
+                    </mat-form-field>
+                </div>
+              <div class="">
+                  <mat-form-field class="category "  appearance="outline">
+                      <mat-label>Select Category</mat-label>
+                      <mat-select  formControlName="category_id">
+                          <mat-option *ngFor="let item of categories" [value]="item.category_id" (click)="filter.category_id = item.category_id">
+                             {{item.name_en}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+              </div>
+                <div class="" *ngIf="appService.decoded?.user_type=='admin'">
+                    <mat-form-field class="category "  appearance="outline">
+                        <mat-label>Select Stores</mat-label>
+                        <mat-select  >
+                            <mat-option *ngFor="let item of farmers" [value]="item.farmer_id" (click)="filter.farmer_id = item.farmer_id">
+                                {{item.title_en}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="mt-4">
+                    <button aria-label="EDIT" class="submit-button float-right w-100-p" color="accent" mat-raised-button (click)="applyFilter()">
+                        Apply Filter
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div>
+            <button aria-label="EDIT" class="submit-button float-right w-100-p" color="accent" mat-raised-button
+                    routerLink="/pages/product/0">
+                <img class="icone-plus " src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add New Product
+            </button>
+        </div>
+    </div>
+    <table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p p-16" mat-table>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="product_id" class="">
+            <th *matHeaderCellDef mat-header-cell> No.</th>
+            <td *matCellDef="let element" mat-cell> {{element.product_id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name_en" class="">
+            <th *matHeaderCellDef mat-header-cell> English Title</th>
+            <td *matCellDef="let element" mat-cell> {{element.title_en}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name_ar" class="">
+            <th *matHeaderCellDef mat-header-cell>Arabic Title</th>
+            <td *matCellDef="let element" mat-cell> {{element.title_ar}}  </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="image" class="">
+            <th *matHeaderCellDef mat-header-cell> Photo</th>
+            <td *matCellDef="let element" mat-cell><img [src]="restService.baseUrl + element.image" alt=""></td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="status" class="">
+            <th *matHeaderCellDef mat-header-cell> Status</th>
+            <td *matCellDef="let element" mat-cell>
+                <span class="unactive" *ngIf="element.active == 0">Not Active</span>
+                <span class="active" *ngIf="element.active == 1">Active</span>
+            </td>
+        </ng-container>
+
+
+        <!-- Name Column -->
+
+        <ng-container matColumnDef="action">
+            <th *matHeaderCellDef mat-header-cell> Action</th>
+            <td *matCellDef="let element" mat-cell>
+<!--                <button aria-label="EDIT" class="submit-button m-4" color="accent" mat-raised-button-->
+<!--                         *ngIf="element.Category?.name_en != 'Boxes'">Edit-->
+<!--                    <a [href]="'https://crowdmarket.ae/dashboard/#/pages/product/' +  element?.product_id" target="_blank"></a>-->
+<!--                </button>-->
+                <a [href]="'https://crowdmarket.ae/dashboard/#/pages/product/' +  element?.product_id"  *ngIf="element.Category?.name_en != 'Boxes'" target="_blank" mat-raised-button class="submit-button p-8" color="accent">Edit</a>
+
+
+<!--                <button aria-label="EDIT" class="submit-button m-4" color="accent" mat-raised-button-->
+<!--                         *ngIf="element?.Category?.name_en == 'Boxes'">-->
+<!--                    <a [href]="'https://crowdmarket.ae/dashboard/#/pages/box/' +  element?.product_id" target="_blank">Edit</a>-->
+
+<!--                </button>-->
+                <a [href]="'https://crowdmarket.ae/dashboard/#/pages/box/' +  element?.product_id"  *ngIf="element.Category?.name_en == 'Boxes'" target="_blank" mat-raised-button class="submit-button p-8" color="accent">Edit</a>
+
+                <button aria-label="EDIT" class="submit-button m-4" color="accent" mat-raised-button *ngIf="element.active == 0"
+                       (click)="confirmeActiveUnactive(element , 1)"
+                >
+                    Active
+                </button>
+                <button aria-label="EDIT" class="submit-button m-4 px-8" color="accent" mat-raised-button *ngIf="element.active == 1"
+                        (click)="confirmeActiveUnactive(element , 0)"
+                >
+                    UnActive
+                </button>
+<!--                <button aria-label="EDIT" class="submit-button m-4" color="accent" mat-raised-button-->
+<!--                        [routerLink]="'/pages/meal-details/' + element.meal_id"-->
+<!--                >-->
+<!--                    Details-->
+<!--                </button>-->
+<!--                <button aria-label="EDIT" class="submit-button m-4" color="accent" mat-raised-button-->
+<!--                        [routerLink]="'/pages/reviews/' + element.meal_id"-->
+<!--                >-->
+<!--                    Reviews-->
+<!--                </button>-->
+            </td>
+        </ng-container>
+
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+    <mat-paginator class="w-100-p" [length]="length" (click)="getProducts()"
+                   [pageSize]="filter.size"
+                   (page)="pageEvent = $event"
+    >
+    </mat-paginator>
+
+</div>

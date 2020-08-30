@@ -1,0 +1,27 @@
+image-cropper {
+    max-height: 33vh;
+}
+
+
+.upload{
+    padding: 12px;
+    border-radius: 5px;
+    color: black;
+    background: #039be5;
+    border: none;
+}
+
+.dialog{
+    //height: 30rem;
+}
+
+.close-button{
+    right: 0px;
+}
+
+
+::ng-deep .mat-dialog-container{
+    padding:  10px;
+    min-height: 20rem;
+    height: auto;
+}

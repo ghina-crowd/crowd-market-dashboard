@@ -1,0 +1,140 @@
+<div class="order-details " id="about">
+
+    <div class="about-content">
+
+        <div class="profile-box info-box general" fxLayout="column">
+            <div class="info-line header">
+                <div>
+                    <h2>Order Details</h2>
+                </div>
+            </div>
+            <div class="user-order-details">
+                <div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Transaction ID:</div>
+                            <div class="info ml-16">{{data?.transaction_id}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Order Timing:</div>
+                            <div class="info ml-16">{{data?.date | date: 'yyyy MM dd hh:mm a'}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16" *ngIf="data?.comments">
+                        <div class="info-line">
+                            <div class="title">Comment:</div>
+                            <div class="info ml-16">{{data?.comments}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">User Name:</div>
+                            <div class="info ml-16">{{data?.user.first_name}} {{data?.user.last_name}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">address:</div>
+                            <div class="info ml-16">{{data?.address.city?.name_en}} , {{data.address.area}}
+                                , {{data.address.street}}, {{data.address.building}} building,
+                                floor {{data.address.floor}} floor, {{data.address.apartment}} </div>
+                        </div>
+                    </div>
+                    <div class="content mt-16" *ngIf="data?.address?.additional">
+                        <div class="info-line">
+                            <div class="title">Additional information:</div>
+                            <div class="info ml-16">{{data?.address?.additional}} </div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">mobile:</div>
+                            <div class="info ml-16">{{data?.address?.phone}} </div>
+                        </div>
+                    </div>
+                    <div class="content mt-16" *ngIf="data?.address?.landline">
+                        <div class="info-line">
+                            <div class="title">Landline:</div>
+                            <div class="info ml-16">{{data?.address?.landline}} </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content mt-16">
+                <table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p p-16" mat-table>
+
+                    <!-- Position Column -->
+
+
+                    <ng-container matColumnDef="product" class="">
+                        <th *matHeaderCellDef mat-header-cell> Product</th>
+                        <td *matCellDef="let element" mat-cell> {{element?.product?.title_en}}
+
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="store" class="">
+                        <th *matHeaderCellDef mat-header-cell> Store</th>
+                        <td *matCellDef="let element" mat-cell>
+                            <span class="px-1">{{element.farmer.title_en}}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="type" class="">
+                        <th *matHeaderCellDef mat-header-cell> Type</th>
+                        <td *matCellDef="let element" mat-cell> {{element?.product?.type.name_en}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="quantity" class="">
+                        <th *matHeaderCellDef mat-header-cell> Quantity</th>
+                        <td *matCellDef="let element" mat-cell> {{element?.quantity}}/{{element?.product?.quantity}}{{element?.product?.unit.name_en}}   </td>
+                    </ng-container>
+                    <ng-container matColumnDef="price" class="">
+                        <th *matHeaderCellDef mat-header-cell> Price</th>
+                        <td *matCellDef="let element" mat-cell>
+                            <span *ngIf="+element.product.new_price == 0"> {{element.product?.price}}</span>
+                            <span *ngIf="+element.product.new_price > 0"> {{element.product?.new_price}}</span>
+                             </td>
+                    </ng-container>
+                    <ng-container matColumnDef="sub_total" class="">
+                        <th *matHeaderCellDef mat-header-cell> Sub total</th>
+                        <td *matCellDef="let element" mat-cell>
+                            <span *ngIf="!+element.product.new_price">{{(+element.product?.price * element?.quantity).toFixed(2)}} </span>
+                            <span *ngIf="+element.product.new_price">{{(+element.product?.new_price * element?.quantity).toFixed(2)}} </span>
+                        </td>
+                    </ng-container>
+
+                    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+                </table>
+
+            </div>
+            <div class=" mt-24">
+                <div class="info-line final">
+                    <div class="">Sub Total:</div>
+                    <div>{{data.subtotal}} AED</div>
+                </div>
+                <div class="info-line final" *ngIf="data.discount">
+                    <div class="">Discount:</div>
+                    <div>{{data.discount}} AED</div>
+                </div>
+                <div class="info-line final">
+                    <div class="">Tax:</div>
+                    <div>{{data.tax}} AED</div>
+                </div>
+                <div class="info-line final">
+                    <div class="">Delivery Charges:</div>
+                    <div>{{data.delivery_charges}} AED</div>
+                </div>
+                <div class="info-line final">
+                    <div class=""> Total:</div>
+                    <div>{{ data.total_price}} AED</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

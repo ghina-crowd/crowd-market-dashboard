@@ -1,0 +1,124 @@
+<div class="page-layout simple tabbedm p-16 orders" id="deals">
+    <h1>Orders</h1>
+    <div class="filter">
+        <form [formGroup]="filterForm" class="filter w-50-p">
+            <div class="">
+                <mat-form-field class="   ">
+                    <mat-label>Search By Order Number</mat-label>
+                    <input (keyup)="filter.order_id = $event.target.value ;applyFilter()" matInput
+                           placeholder="Order Number" class="">
+                </mat-form-field>
+            </div>
+            <div class="autocomplete">
+                <mat-form-field>
+                    <mat-label>Select an option</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option value="-1">All</mat-option>
+                        <mat-option value="0">Pending</mat-option>
+                        <mat-option value="2">Completed</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+            <div class="mx-8">
+                <mat-form-field>
+                    <mat-label> Date From</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="mx-8">
+                <mat-form-field>
+                    <mat-label> Date To</mat-label>
+                    <input matInput [matDatepicker]="pickerend" formControlName="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="pickerend"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerend></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div>
+                <button aria-label="EDIT" class="submit-button float-right w-100-p" color="accent" mat-raised-button
+                        (click)="applyFilter()">
+                    Apply Filter
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p p-16" mat-table>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id" class="">
+            <th *matHeaderCellDef mat-header-cell> No.</th>
+            <td *matCellDef="let element" mat-cell> {{element.order_id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="transaction_id" class="">
+            <th *matHeaderCellDef mat-header-cell> Transaction ID</th>
+            <td *matCellDef="let element" mat-cell> {{element.transaction_id}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="order_timing" class="">
+            <th *matHeaderCellDef mat-header-cell>Order Timing</th>
+            <td *matCellDef="let element" mat-cell> {{element.order_timing | date: 'yyy MM dd hh:mm a'}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status" class="">
+            <th *matHeaderCellDef mat-header-cell> Status</th>
+            <td *matCellDef="let element" mat-cell>
+                <span class="pending" *ngIf="element.status == 0">Pending</span>
+                <span class="proccess" *ngIf="element.status == 1">Preparing</span>
+                <span class="active" *ngIf="element.status == 2">Completed</span>
+                <span class="unactive" *ngIf="element.status == 3">Canceled</span>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="payment" class="" *ngIf="decoded.user_type === 'admin' || decoded.user_type === 'driver'">
+            <th *matHeaderCellDef mat-header-cell> Payment</th>
+            <td *matCellDef="let element" mat-cell>
+                <span  *ngIf="element.payment_type == 1">Banking Cards</span>
+                <span  *ngIf="element.payment_type == 2">Cash</span>
+                <span  *ngIf="element.payment_type == 3">Online</span>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="products" class="">
+            <th *matHeaderCellDef mat-header-cell>Products</th>
+            <td *matCellDef="let element" mat-cell>
+                <div *ngFor="let item of element.crowdmarket_sub_orders">
+                    - {{item?.product?.title_en}}({{item?.quantity}} / {{item?.product?.quantity}}{{item.product?.unit.name_en}})
+                </div>
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="action" class="">
+            <th *matHeaderCellDef mat-header-cell> Action</th>
+            <td *matCellDef="let element" mat-cell>
+                <button aria-label="EDIT" class="submit-button m-4" color="accent" mat-raised-button
+                                 (click)="openDialogOrder(element)" *ngIf="decoded.user_type == 'admin' || decoded.user_type == 'driver'">
+                Details
+            </button>
+                <button aria-label="EDIT" class="submit-button m-4" color="accent" mat-raised-button
+                        (click)="updateOrders(element , 3)" *ngIf="decoded.user_type == 'admin' && element.status == 0">
+                    Cancel
+                </button>
+                <button aria-label="EDIT" class="submit-button m-4" color="accent" mat-raised-button
+                        (click)="openDialogStoreOrder(element)" *ngIf="decoded.user_type == 'ServicePro'">
+                    Details
+                </button>
+                <button aria-label="EDIT" class="submit-button m-4" color="accent" mat-raised-button
+                        *ngIf="(decoded.user_type == 'admin' || decoded.user_type == 'driver') && element.status == 0" (click)="updateOrders(element, 2)">
+                    Done
+                </button>
+            </td>
+        </ng-container>
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+    <mat-paginator class="w-100-p" [length]="length" (click)="getOrders()"
+                   [pageSize]="filter.size"
+                   (page)="pageEvent = $event"
+    >
+    </mat-paginator>
+
+</div>

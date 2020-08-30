@@ -1,0 +1,100 @@
+<div class="p-24 w-75-p" id="about">
+
+    <div class="about-content">
+
+        <div class="profile-box info-box general" fxLayout="column">
+
+            <div><h2>Meal Details</h2></div>
+            <div class="content mt-16">
+                <div class="info-line">
+                    <div class="title ">English Title:</div>
+                    <div class="info ml-16">{{details?.name_en}}</div>
+                </div>
+                <div class="info-line">
+                    <div class="title">Arabic Title:</div>
+                    <div class="info ml-16">{{details?.name_ar}}</div>
+                </div>
+                <div class="info-line">
+                    <div class="title">English Meal Ingredient:</div>
+                    <div class="info ml-16">{{details?.description_en}}</div>
+                </div>
+                <div class="info-line">
+                    <div class="title">Arabic Meal Ingredient:</div>
+                    <div class="info ml-16">{{details?.description_ar}}</div>
+                </div>
+
+                <div class="info-line">
+                    <div class="title mr-16">price:</div>
+                    <div class="info mr-24">{{details?.price}} AED</div>
+
+                </div>
+                <div class="info-line">
+                    <div class="title mr-16">Country Kitchen:</div>
+                    <div class="info mr-24">{{details?.category.name_en}} </div>
+
+                </div>
+                <div class="info-line">
+                    <div class="title mr-16">Kitchen Name:</div>
+                    <div class="info mr-24">{{details?.kitchen.name_en}} AED</div>
+
+                </div>
+                <div class="info-line">
+                    <div class="title mr-16">Menu:</div>
+                    <div class="info mr-24">{{details?.menu.name_en}} </div>
+
+                </div>
+                <div class="info-line">
+                    <div class="title mr-16">Menu:</div>
+                    <div class="info mr-24">{{details?.Type.name_en}} </div>
+
+                </div>
+
+
+                <div class="info-line" *ngIf="details?.image">
+                    <div class="title ">Image Meal:</div>
+                    <div class="info ml-16"><img [src]="restService.baseUrl + details.image" alt=""></div>
+                </div>
+
+                <div class="info-line ">
+                    <div class="title">Status:</div>
+                    <div class="info ml-16">
+                        <span *ngIf="details?.active == 0">UnActive</span>
+                        <span *ngIf="details?.active == 1">Active</span>
+
+                    </div>
+                </div>
+                <div class="info-line ">
+                    <div class="title">Total Served:</div>
+                    <div class="info ml-16">
+                        {{details?.total_served}}
+                    </div>
+                </div>
+                <div class="info-line ">
+                    <div class="title">Featured:</div>
+                    <div class="info ml-16">
+                        <span *ngIf="details?.featured == 0">NO</span>
+                        <span *ngIf="details?.featured == 1">Yes</span>
+
+                    </div>
+                </div>
+                <div class="info-line">
+                    <div class="title ">Rate:</div>
+                    <div class="info ml-16">
+                        {{details?.final_rate}}
+                    </div>
+                </div>
+                <div class="info-line">
+                    <div class="title ">Count of Favourites:</div>
+                    <div class="info ml-16">
+                        {{details?.favouriteCount}}
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>

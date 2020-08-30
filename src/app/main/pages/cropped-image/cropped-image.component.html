@@ -1,0 +1,59 @@
+<div class="col-md-12 cropped">
+    <span class="star">*</span> <input type="file" accept="image/*" (change)="fileChangeEvent($event)"/>
+    <br/>
+    <br/>
+    <button *ngIf="croppedImage" mat-raised-button color="accent" class="mx-8" (click)="rotateLeft()">Rotate left
+    </button>
+    <button *ngIf="croppedImage" mat-raised-button color="accent" class="mx-8" (click)="rotateRight()">Rotate right
+    </button>
+    <button *ngIf="croppedImage" mat-raised-button color="accent" class="mx-8" (click)="flipHorizontal()">Flip
+        horizontal
+    </button>
+    <button *ngIf="croppedImage" mat-raised-button color="accent" class="mx-8" (click)="flipVertical()">Flip vertical
+    </button>
+
+    <button *ngIf="croppedImage" mat-raised-button color="accent" class="mx-8" (click)="zoomOut()">Zoom -</button>
+    <button *ngIf="croppedImage" mat-raised-button color="accent" class="mx-8" (click)="zoomIn()">Zoom +</button>
+
+
+
+    <div class="my-16">
+        <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [containWithinAspectRatio]="containWithinAspectRatio"
+            [aspectRatio]="4 / 3"
+            [resizeToWidth]="500"
+            [cropperMinWidth]="500"
+            [onlyScaleDown]="false"
+            [roundCropper]="false"
+            [canvasRotation]="canvasRotation"
+            [transform]="transform"
+            [alignImage]="'left'"
+            [style.display]="showCropper ? null : 'none'"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady($event)"
+            (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+    </div>
+    <button mat-raised-button color="accent" class="btn btn-primary mx-8" *ngIf="croppedImage"
+            (click)="uploadTextFile()">Crop
+    </button>
+
+</div>
+<div class="col-md-12 mt-8" *ngIf="image && image.split('?')[0].split('.').pop() != 'mp4'">
+    <img [src]="croppedImage? croppedImage : restService.baseUrl + image" class="my-5 mx-auto image"/>
+</div>
+<div class="col-md-12 mt-8" *ngIf="image && image.split('?')[0].split('.').pop() == 'mp4'">
+    <video width="320" height="240" autoplay>
+        <source [src]="restService.baseUrl + image" type="video/mp4">
+        <source [src]="restService.baseUrl + image" type="video/ogg">
+    </video>
+</div>
+
+<div class="col-md-12" *ngIf="!isInsideDialog">
+    <button mat-raised-button color="accent" class="btn btn-primary" (click)="onSubmit()">Done</button>
+    <button mat-raised-button color="accent" class="btn btn-secondary" (click)="dialog.closeAll()">Cancel</button>
+</div>

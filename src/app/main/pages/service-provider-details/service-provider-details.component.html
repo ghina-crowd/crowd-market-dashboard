@@ -1,0 +1,144 @@
+
+<div class="p-24 w-75-p" id="about">
+    <h1>Service Provider Details</h1>
+    <a  *ngIf="user?.deals.length > 0"   routerLink="/pages/deals/{{user?.user_admin_id}}"><h3>Go To Deals's Service Provider</h3></a>
+
+    <div class="about-content">
+        <div class="profile-box info-box general mb-16" fxLayout="column">
+            <header class="options">
+                <div class="title border-bottom"><h2>Owner Information</h2></div>
+                <div class="content mt-16 pl-16">
+                    <div class="info-line">
+                        <div class="title ">Name:</div>
+                        <div class="info ml-16">{{user?.first_name}} {{user?.last_name}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title ">Email:</div>
+                        <div class="info ml-16">{{user?.email}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title ">Mobile:</div>
+                        <div class="info ml-16">{{user?.phone}}</div>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="profile-box info-box general" fxLayout="column">
+            <header class="options">
+                <div class="title border-bottom"><h2>Company Information</h2></div>
+                <div class="content mt-16 pl-16">
+                    <div class="info-line" *ngIf="company?.company_name_en">
+                        <div class="title ">Company Name in english:</div>
+                        <div class="info ml-16">{{company?.company_name_en}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.company_name_ar">
+                        <div class="title "> Company Name in arabic:</div>
+                        <div class="info ml-16">{{company?.company_name_ar}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.company_name_ar">
+                        <div class="title ">Roll Title:</div>
+                        <div class="info ml-16">{{company?.company_name_ar}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.trade_name">
+                        <div class="title ">Company Trade Name:</div>
+                        <div class="info ml-16">{{company?.trade_name}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.nature_of_business">
+                        <div class="title "> Primary Nature of Business:</div>
+                        <div class="info ml-16">{{company?.nature_of_business}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.landline_number">
+                        <div class="title ">Landline Number:</div>
+                        <div class="info ml-16">{{company?.landline_number}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.licence_number">
+                        <div class="title ">Trade Licence Number:</div>
+                        <div class="info ml-16">{{company?.licence_number}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.expiry_date">
+                        <div class="title "> Trade Licence Expiry Date:</div>
+                        <div class="info ml-16">{{company?.expiry_date}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title ">Deal Type:</div>
+                        <div class="info ml-16">
+                            <span *ngIf="company?.cost_type == 0">Dry Cost</span>
+                            <span *ngIf="company?.cost_type == 1">Full Price</span>
+                        </div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.tax_number">
+                        <div class="title ">VAT Number:</div>
+                        <div class="info ml-16">{{company?.tax_number}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.nature_of_business">
+                        <div class="title ">Number of branches:</div>
+                        <div class="info ml-16">{{company?.nature_of_business}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.website_link">
+                        <div class="title "> Website link:</div>
+                        <div class="info ml-16"><a [href]="company?.website_link" target="_blank">{{company?.website_link}}</a></div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.facebook_page">
+                        <div class="title ">Facebook page:</div>
+                        <div class="info ml-16"><a [href]="company?.facebook_page" target="_blank">{{company?.facebook_page}}</a></div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.instagram_page">
+                        <div class="title ">Instagram page:</div>
+                        <div class="info ml-16"><a [href]="company?.instagram_page" target="_blank">{{company?.instagram_page}}</a></div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.description_en">
+                        <div class="title ">Company Description in english:</div>
+                        <div class="info ml-16">{{company?.description_en}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.description_ar">
+                        <div class="title ">Company Description in arabic:</div>
+                        <div class="info ml-16">{{company?.description_ar}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="company?.location_name">
+                        <div class="title ">Location:</div>
+                        <div class="info ml-16">{{company?.location_name}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title ">Number of delas:</div>
+                        <div class="info ml-16">{{company?.target}}</div>
+                    </div>
+                    <div class="info-line"  *ngIf="company?.url_signed_company_form">
+                        <div class="title ">Signed Coboney's Form:</div>
+                        <div class="info ml-16"><a [href]="restService.baseUrl +'/' + company.url_signed_company_form" target="_blank">Open</a></div>
+                    </div>
+                    <div class="info-line"  *ngIf="company?.url_trade_license">
+                        <div class="title ">Copy of Trade License:</div>
+                        <div class="info ml-16"><a [href]="restService.baseUrl +'/' + company.url_trade_license" target="_blank">Open</a></div>
+                    </div>
+                    <div class="info-line"  *ngIf="company?.url_service_provider_id">
+                        <div class="title ">Owner ID:</div>
+                        <div class="info ml-16"><a [href]="restService.baseUrl +'/' + company.url_service_provider_id" target="_blank">Open</a></div>
+                    </div>
+                    <div class="info-line"  *ngIf="company?.url_owner_photo_with_id">
+                        <div class="title ">Photo of the Owner holding his ID:</div>
+                        <div class="info ml-16"><a [href]="restService.baseUrl +'/' + company.url_owner_photo_with_id" target="_blank">Open</a></div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="buttons my-48">
+            <button aria-label="details" *ngIf="user.active == 1" class="submit-button w-25-p mr-16" color="accent"
+                    mat-raised-button (click)="confirmeActiveBlock(user , 0)">
+                Unactive
+            </button>
+            <button aria-label="details" *ngIf="user.active == 0" class="submit-button w-25-p mr-16" color="accent"
+                    mat-raised-button (click)="confirmeActiveBlock(user , 1)">
+                Active
+            </button>
+            <button aria-label="details" *ngIf="user.active == 2" class="submit-button w-25-p mr-16" color="accent"
+                    mat-raised-button (click)="confirmeActiveBlock(user , 1)">
+                Unblock
+            </button>
+            <button aria-label="details" *ngIf="user.active !== 2" class="submit-button w-25-p" color="accent"
+                    mat-raised-button (click)="confirmeActiveBlock(user , 2)">
+                Block
+            </button>
+            </div>
+        </div>
+    </div>
+</div>

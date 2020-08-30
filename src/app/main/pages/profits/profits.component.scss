@@ -1,0 +1,61 @@
+.profit img{
+    width: 8rem;
+    object-fit: cover;
+}
+
+td , th{
+    padding: 10px !important;
+}
+
+
+.profit .filter{
+    display: flex;
+    //justify-content: start;
+}
+
+
+ .bg-green div {
+    background: mediumseagreen;
+    font-size: 2rem;
+    width: 25%;
+}
+
+
+
+.profit .autocomplete input{
+    height: 5.2rem;
+    border: 1px solid black;
+    border-radius: 10px;
+
+}
+
+
+.profit .autocomplete{
+    padding: 0 10px !important;
+
+}
+
+::ng-deep .profit .mat-form-field-flex{
+    border: 1px solid ;
+    border-radius: 7px;
+    background: white;
+    padding: 5px 16px;
+}
+
+::ng-deep .profit .mat-form-field-underline{
+    display: none;
+}
+
+ .bg-golden div{
+    background: goldenrod;
+    font-size: 2rem;
+    width: 25%;
+
+}
+
+.bg-blue div{
+    background: cadetblue;
+    font-size: 2rem;
+    width: 25%;
+
+}

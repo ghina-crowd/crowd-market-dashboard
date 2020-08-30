@@ -1,0 +1,93 @@
+<div class="page-layout simple tabbed" id="new_branch">
+
+    <div class="p-24" fxLayout="row wrap" id="">
+        <form [formGroup]="farmerForm" class="d-flex flex-column w-50-p  mb-16" name="providerForm" novalidate>
+            <div class="new_deal">
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label><span class="star">*</span>English store title</mat-label>
+                    <input formControlName="title_en" #name_en matInput maxlength="30">
+                    <mat-hint align="end">{{name_en.value.length}} / 30</mat-hint>
+                    <mat-error>
+                        English title is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label><span class="start">*</span> Arabic store title</mat-label>
+                    <input formControlName="title_ar" #name_ar matInput maxlength="30">
+                    <mat-hint align="end">{{name_ar.value.length}} / 30</mat-hint>
+                    <mat-error>
+                        Arabic title is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label><span class="star">*</span> English store Description</mat-label>
+                    <textarea formControlName="description_en" matInput #desc_en minlength="20" rows="5"
+                              placeholder="minimum 20 characters"></textarea>
+                    <mat-hint align="end">{{desc_en.value.length}} </mat-hint>
+                    <mat-error *ngIf="desc_en.value.length <= 0">
+                        English Description is required
+                    </mat-error>
+                    <mat-error *ngIf="desc_en.value.length < 20 && desc_en.value.length > 0">
+                        Please enter up to 20 chararcters.
+                    </mat-error>
+
+
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label><span class="star">*</span> Arabic store Description</mat-label>
+                    <textarea formControlName="description_ar" matInput #desc_ar minlength="20" rows="5"
+                              placeholder="minimum 20 characters"></textarea>
+                    <mat-hint align="end">{{desc_ar.value.length}}</mat-hint>
+
+                    <mat-error *ngIf="desc_ar.value.length <= 0">
+                        Arabic Description is required
+                    </mat-error>
+                    <mat-error *ngIf="desc_ar.value.length < 20 && desc_ar.value.length > 0">
+                        Please enter up to 20 chararcters.
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="map w-100-p">
+                    <div
+                         class="autocomplete-container w-100-p">
+                        <mat-google-maps-autocomplete [appearance]="appearance.OUTLINE"
+                                                      (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                                                      (onLocationSelected)="onLocationSelected($event)">
+                        </mat-google-maps-autocomplete>
+                    </div>
+                    <div class="mb-16" *ngIf="f.location_address.value">{{f.location_address.value}}</div>
+                    <div fxFlex class="map w-100-p">
+                        <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                            <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                        </agm-map>
+                    </div>
+                </div>
+
+<!--                <div class="my-16 px-16">-->
+<!--                    <mat-checkbox formControlName="featured" disabled>Featured</mat-checkbox>-->
+<!--                </div>-->
+
+                <div class="upload-file form-group mt-24">
+                    <h3><span class="required-star">*</span> Upload image</h3>
+                    <div class="form-group">
+                        <button (click)="openDialog()" class="submit-button   upload " name="image">Upload Image</button>
+                    </div>
+
+                    <div class="my-8 ">
+                        <img [src]="restService.baseUrl + f.image.value" alt="">
+                    </div>
+
+
+                </div>
+
+                <button (click)="update()" aria-label="ADD" [disabled]="farmerForm.invalid"
+                        class="submit-button w-100-p mt-24" color="accent"
+                        mat-raised-button>
+                    Update
+                </button>
+
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,44 @@
+<div class="page-layout simple tabbedm p-16" id="deals" >
+    <h1>Complains</h1>
+
+    <table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p p-16" mat-table>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id" class="deal_id">
+            <th *matHeaderCellDef mat-header-cell> No.</th>
+            <td *matCellDef="let element" mat-cell> {{element.contact_id}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th *matHeaderCellDef mat-header-cell> Name</th>
+            <td *matCellDef="let element" mat-cell> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="email">
+            <th *matHeaderCellDef mat-header-cell> Email</th>
+            <td *matCellDef="let element" mat-cell> {{element.email}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="message">
+            <th *matHeaderCellDef mat-header-cell> Message</th>
+            <td *matCellDef="let element" mat-cell> {{element.message}} </td>
+        </ng-container>
+
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+
+    <mat-paginator class="w-100-p" [length]="length" (click)="getContactus()"
+                   [pageSize]="filter.size"
+                   (page)="pageEvent = $event"
+    >
+    </mat-paginator>
+
+</div>

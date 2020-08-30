@@ -1,0 +1,260 @@
+<div class="page-layout simple tabbed" id="new_branch">
+    <div class="p-24" fxLayout="row wrap" id="">
+
+        <form name="providerForm" class="d-flex flex-column w-50-p  my-10" [formGroup]="providerForm" novalidate>
+
+            <div>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Roll Title</mat-label>
+                    <input matInput formControlName="company_role">
+                    <mat-error>
+                        Roll title name is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Service Provider Company Name in english</mat-label>
+                    <input matInput formControlName="company_name_en">
+                    <mat-error>
+                        English company name is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Service Provider Company Name in arabic</mat-label>
+                    <input matInput formControlName="company_name_ar">
+                    <mat-error>
+                        Arabic Company name is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Service Provider Trade Name</mat-label>
+                    <input matInput formControlName="trade_name">
+                    <mat-error>
+                        Service provider trade Name is require
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Primary Nature of Business</mat-label>
+                    <input matInput formControlName="nature_of_business">
+                    <mat-error>
+                        Primary nature of business is required
+
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Landline number</mat-label>
+                    <input matInput formControlName="landline_number">
+                    <mat-error>
+                        Landline number is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <div>
+                    <mat-form-field appearance="outline" class="w-100-p">
+                        <mat-label>Trade Licence Number</mat-label>
+                        <input matInput formControlName="licence_number">
+                        <mat-error>
+                            Trade Licence Number is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Trade Licence Expiry Date</mat-label>
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date"
+                           formControlName="expiry_date" [min]="currentDate" diasabled="true">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error>
+                        Trade licence expiry date is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>VAT Number</mat-label>
+                    <input matInput formControlName="tax_number">
+                    <mat-error>
+                        VAT number is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Number of branches</mat-label>
+                    <input matInput formControlName="number_of_locations" type="number">
+                    <mat-error>
+                        Number of branches is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Website link</mat-label>
+                    <input matInput formControlName="website_link">
+
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Facebook page</mat-label>
+                    <input matInput formControlName="facebook_page">
+
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Instagram page</mat-label>
+                    <input matInput formControlName="instagram_page">
+
+                </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Company Description in english</mat-label>
+                <textarea matInput placeholder="Company Description in english"
+                          formControlName="description_en"></textarea>
+                <mat-error>
+                    English company description is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Company Description in arabic</mat-label>
+                <textarea matInput placeholder="Company Description in arabic"
+                          formControlName="description_ar"></textarea>
+                <mat-error>
+                    Arabic company description is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100-p">
+                <mat-label>Select City</mat-label>
+                <mat-select formControlName="city_id" placeholder="Select City">
+                    <mat-option *ngFor="let item of cities"
+                                [value]="item.city_id">{{item.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    City is required
+                </mat-error>
+            </mat-form-field>
+            <div class="my-24">
+                <mat-radio-group aria-label="Select an option" formControlName="cost_type">
+                    <mat-label> Deal Type </mat-label>
+                    <mat-radio-button value="1" [checked]= "p.cost_type.value == '1'" class="mx-24">Full Price</mat-radio-button>
+                    <mat-radio-button value="0" [checked]= "p.cost_type.value == '0'" class="mx-24">Dry Cost</mat-radio-button>
+                </mat-radio-group>
+
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Number of Deal</mat-label>
+                    <input matInput formControlName="target" type="number">
+                    <mat-error>
+                        Number of Deal is required
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <div
+                    class="autocomplete-container w-100-p">
+                    <mat-google-maps-autocomplete class="autocomplete-container" [appearance]="appearance.OUTLINE"
+                                                  (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                                                  (onLocationSelected)="onLocationSelected($event)">
+                    </mat-google-maps-autocomplete>
+                    <p>{{location}}</p>
+
+                </div>
+                <div class="w-100-p">
+                    <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                    </agm-map>
+                </div>
+            </div>
+            <div class="upload-file">
+                <h3> Signed Coboney's Form (pdf , png , jpeg)</h3>
+                <div class="form-group">
+                    <input type="file" class="bg-primary-p p-0" name="image"
+                           accept="image/jpeg,image/png,application/pdf"
+                           (change)="fileProgress($event , 1)"/>
+                    <a [href]="restService.baseUrl + p.url_signed_company_form.value" target="_blank">Signed Coboney's
+                        Form</a>
+                </div>
+
+                <div class="image-preview mb-3 mt-3" *ngIf="signedFormURL">
+                    <img [src]="signedFormURL" height="300"/>
+                </div>
+
+
+            </div>
+            <div class="upload-file">
+                <h3> Copy of Trade License (pdf , png , jpeg)</h3>
+                <div class="form-group">
+                    <input type="file" class="bg-primary-p p-0" name="image"
+                           accept="image/jpeg,image/png,application/pdf"
+                           (change)="fileProgress($event , 2)"/>
+                    <a [href]="restService.baseUrl + p.url_trade_license.value" target="_blank">Copy of Trade
+                        License</a>
+                </div>
+
+                <div class="image-preview mb-3" *ngIf="copyLicenceName && copyLicenceName.split('.')[1] !='pdf'">
+                    <img [src]="restService.baseUrl + copyLicenceName" height="300"/>
+                </div>
+
+
+            </div>
+            <div class="upload-file">
+                <h3> Copy of Service Provider (Owner) ID (pdf , png , jpeg)</h3>
+                <div class="form-group">
+                    <input type="file" class="bg-primary-p p-0" name="image"
+                           accept="image/jpeg,image/png,application/pdf"
+                           (change)="fileProgress($event , 3)"/>
+                    <a [href]="restService.baseUrl + p.url_service_provider_id.value" target="_blank">Owner ID</a>
+
+                </div>
+
+                <div class="image-preview mb-3" *ngIf="ownerIDName && ownerIDName.split('.')[1] !='pdf'">
+
+                    <img [src]="restService.baseUrl + ownerIDName" height="300"/>
+                </div>
+
+                <div class="mb-3" *ngIf="uploadedFilePath">
+                    {{uploadedFilePath}}
+                </div>
+
+            </div>
+            <div class="upload-file">
+                <h3> Photo of the Owner holding his ID (png , jpeg)</h3>
+                <div class="form-group">
+                    <input type="file" class="bg-primary-p p-0" name="image" accept="image/jpeg, image/png"
+                           (change)="fileProgress($event , 4)"/>
+                    <a [href]="restService.baseUrl + p.url_owner_photo_with_id.value" target="_blank">Photo of the Owner
+                        holding his ID</a>
+
+                </div>
+
+                <div class="image-preview mb-3" *ngIf="holdingOwnerIDName">
+                    <img [src]="restService.baseUrl + holdingOwnerIDName" height="300"/>
+                </div>
+
+
+            </div>
+            <button mat-raised-button color="accent" class="submit-button w-100-p" aria-label=""
+                    [disabled]="providerForm.invalid" (click)="onSubmit()">
+                Update
+            </button>
+
+
+        </form>
+
+    </div>
+</div>

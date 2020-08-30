@@ -1,0 +1,78 @@
+<div class="page-layout simple tabbedm p-16 orders" id="deals">
+    <h1>Coupons</h1>
+    <div id="" class="w-100-p p-16 " fxLayout="row wrap">
+        <div class="w-100-p">
+            <mat-form-field class="w-50-p p-16">
+                <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
+
+            </mat-form-field>
+            <button aria-label="EDIT" class="submit-button float-right add-button" color="accent" mat-raised-button
+                    (click)="openAddDialog()">
+                <img src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add New Coupon
+            </button>
+        </div>
+    <table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p p-16" mat-table>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id" class="">
+            <th *matHeaderCellDef mat-header-cell> No.</th>
+            <td *matCellDef="let element" mat-cell> {{element.coupon_id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="code" class="">
+            <th *matHeaderCellDef mat-header-cell> Code</th>
+            <td *matCellDef="let element" mat-cell> {{element.code}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="start_date" class="">
+            <th *matHeaderCellDef mat-header-cell>Start Date</th>
+            <td *matCellDef="let element" mat-cell> {{element.start_date | date: 'yyy MM dd'}}  </td>
+<!--            <td *matCellDef="let element" mat-cell> {{element.start_date}}  </td>-->
+        </ng-container>
+
+        <ng-container matColumnDef="end_date" class="">
+            <th *matHeaderCellDef mat-header-cell>End Date</th>
+            <td *matCellDef="let element" mat-cell> {{element.end_date | date: 'yyy MM dd'}}  </td>
+<!--            <td *matCellDef="let element" mat-cell> {{element.end_date }}  </td>-->
+        </ng-container>
+
+        <ng-container matColumnDef="max_limit" class="">
+            <th *matHeaderCellDef mat-header-cell>Max Limit</th>
+            <td *matCellDef="let element" mat-cell> {{element.max_limit}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="value" class="">
+            <th *matHeaderCellDef mat-header-cell>Discount</th>
+            <td *matCellDef="let element" mat-cell> {{element.value}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="active" class="">
+            <th *matHeaderCellDef mat-header-cell> Status</th>
+            <td *matCellDef="let element" mat-cell>
+                <span class="unactive" *ngIf="element.active == 0">Not Active</span>
+                <span class="active" *ngIf="element.active == 1">Active</span>
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="action" class="">
+            <th *matHeaderCellDef mat-header-cell> Action</th>
+            <td *matCellDef="let element" mat-cell>
+
+                <button aria-label="EDIT" class="submit-button m-4" color="accent" mat-raised-button
+                        (click)="openEditDialog(element)" >
+                    Edit
+                </button>
+            </td>
+        </ng-container>
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+<!--    <mat-paginator class="w-100-p" [length]="length" (click)="getOrders()"-->
+<!--                   [pageSize]="filter.size"-->
+<!--                   (page)="pageEvent = $event"-->
+<!--    >-->
+<!--    </mat-paginator>-->
+
+</div>

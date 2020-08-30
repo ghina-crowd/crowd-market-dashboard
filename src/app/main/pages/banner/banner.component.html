@@ -1,0 +1,68 @@
+<div class="page-layout simple tabbedm p-16" id="deals">
+    <h1>Banners</h1>
+
+        <div class="mb-16">
+            <button aria-label="EDIT" class="submit-button float-right add-button " color="accent" mat-raised-button
+                   (click)="openAddDialog()">
+                <img class="icone-plus " src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add New banner
+            </button>
+        </div>
+
+    <table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p p-16" mat-table>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="banner_id" class="">
+            <th *matHeaderCellDef mat-header-cell> No.</th>
+            <td *matCellDef="let element" mat-cell> {{element.banner_id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="desc_en" class="">
+            <th *matHeaderCellDef mat-header-cell> English Title</th>
+            <td *matCellDef="let element" mat-cell> {{element.description_en}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="desc_ar" class="">
+            <th *matHeaderCellDef mat-header-cell>Arabic Title</th>
+            <td *matCellDef="let element" mat-cell> {{element.description_ar}}  </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="image" class="">
+            <th *matHeaderCellDef mat-header-cell> Photo</th>
+            <td *matCellDef="let element" mat-cell>
+                <img [src]="restService.baseUrl + element.image" alt="" *ngIf="element.image.split('?')[0].split('.').pop() != 'mp4'">
+                <a *ngIf="element.image.split('?')[0].split('.').pop() == 'mp4'" [href]="restService.baseUrl + element.image " target="_blank">Open Video</a>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status" class="">
+            <th *matHeaderCellDef mat-header-cell> Status</th>
+            <td *matCellDef="let element" mat-cell>
+                <span class="unactive" *ngIf="element.active == 0">Not Active</span>
+                <span class="active" *ngIf="element.active == 1">Active</span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th *matHeaderCellDef mat-header-cell> Action</th>
+            <td *matCellDef="let element" mat-cell>
+                <button aria-label="EDIT" class="submit-button action m-4" color="accent" mat-raised-button (click)="openEditDialog(element)"
+                >
+                    Edit
+                </button>
+                <button aria-label="EDIT" class="submit-button action m-4" color="accent" mat-raised-button (click)="confirmeRemove(element)"
+                >
+                    Delete
+                </button>
+            </td>
+
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+
+
+</div>

@@ -1,0 +1,78 @@
+<div id="new_branch" class="page-layout simple tabbed coupon">
+
+    <div id="" class="edit-dialog" fxLayout="row wrap">
+        <form name="providerForm" class="d-flex flex-column   my-10" [formGroup]="couponForm" novalidate>
+            <h1 *ngIf="data">Edit Coupon</h1>
+            <h1 *ngIf="!data">New Coupon</h1>
+            <div class="new_branch">
+                <mat-form-field appearance="outline" class="">
+                    <mat-label>Code</mat-label>
+                    <input matInput formControlName="code">
+                    <mat-error>
+                        Code is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Discount</mat-label>
+                    <input matInput formControlName="value" type="number">
+                    <mat-error>
+                        Discount is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Max limit</mat-label>
+                    <input matInput formControlName="max_limit" type="number">
+                    <mat-error>
+                        Max limit is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-50-p">
+                    <mat-label>Choose a start date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="start_date" >
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-50-p">
+                    <mat-label>Choose a end date</mat-label>
+                    <input matInput [matDatepicker]="picker1" formControlName="end_date" [min]="f.start_date.value">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+                <div class="my-16" >
+                    <mat-radio-group aria-label="Select an option ">
+                        <mat-radio-button class="mx-16" [checked]="f.active.value == 1" (click)="f.active.setValue(1)"
+                                          value="1">Active
+                        </mat-radio-button>
+                        <mat-radio-button [checked]="f.active.value == 0" (click)="f.active.setValue(0)" value="0">
+                            Unactive
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div class="col-md-12 mt-48">
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="data"
+                            [disabled]="couponForm.invalid  "
+                            (click)="onSubmit()">
+                        Edit
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="!data"
+                            [disabled]="couponForm.invalid  "
+                            (click)="addNewCoupon()">
+                        Add
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button mx-8" aria-label="ADD"
+                            (click)="close()">
+                        Close
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div>

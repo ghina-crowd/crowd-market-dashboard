@@ -1,0 +1,70 @@
+<div id="new_branch" class="page-layout simple tabbed">
+    <h1 class="px-28 py-8">Service Providers</h1>
+
+    <div id="" class="p-24" fxLayout="row wrap">
+
+        <mat-form-field class="w-70-p p-16">
+            <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Search company name">
+        </mat-form-field>
+
+        <table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p p-16" mat-table>
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="company_id" class="deal_id">
+                <th *matHeaderCellDef mat-header-cell> No.</th>
+                <td *matCellDef="let element" mat-cell> {{element.company_id}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="company_name_en">
+                <th *matHeaderCellDef mat-header-cell> English title</th>
+                <td *matCellDef="let element" mat-cell> {{element.company_name_en}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="company_name_ar">
+                <th *matHeaderCellDef mat-header-cell> English title</th>
+                <td *matCellDef="let element" mat-cell> {{element.company_name_ar}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="location_name">
+                <th *matHeaderCellDef mat-header-cell> Location</th>
+                <td *matCellDef="let element" mat-cell> {{element.location_name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="user_admin">
+                <th *matHeaderCellDef mat-header-cell> Owner</th>
+                <td *matCellDef="let element" mat-cell> {{element.user_admin?.first_name}} {{element.user_admin?.last_name}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="action">
+                <th *matHeaderCellDef mat-header-cell> Action</th>
+                <td *matCellDef="let element" mat-cell class="p-8">
+                    <button aria-label="EDIT" class="submit-button mx-4" color="accent"
+                            mat-raised-button routerLink="/pages/service_provider/{{element.user_admin?.user_admin_id}}">
+                        details
+                    </button>
+                    <button aria-label="EDIT" class="submit-button mx-4" color="accent"
+                            mat-raised-button routerLink="/pages/edit_Service_provider/{{element.company_id}}">
+                        Edit
+                    </button>
+
+                </td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+        </table>
+        <mat-paginator class="w-100-p" [length]="length" (click)="getCompanies(this.keyword)"
+                       [pageSize]="pageSize"
+                       (page)="pageEvent = $event">
+        </mat-paginator>
+
+
+    </div>
+
+
+</div>

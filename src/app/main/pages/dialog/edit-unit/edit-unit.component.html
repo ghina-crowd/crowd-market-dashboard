@@ -1,0 +1,50 @@
+<div id="new_branch" class="page-layout simple tabbed banner">
+
+    <div id="" class="" fxLayout="row wrap">
+        <form name="providerForm" class="d-flex flex-column   my-10" [formGroup]="unitForm" novalidate>
+            <h1 *ngIf="data">Edit Unit</h1>
+            <h1 *ngIf="!data">New Unit</h1>
+            <div class="new_branch">
+                <mat-form-field appearance="outline" class="">
+                    <mat-label>Title English</mat-label>
+                    <input matInput formControlName="name_en">
+                    <mat-error>
+                        Title English is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Title Arabic</mat-label>
+                    <input matInput formControlName="name_ar">
+                    <mat-error>
+                        Title Arabic is required
+                    </mat-error>
+                </mat-form-field>
+
+
+                <div class="col-md-12 mt-48">
+
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="data "
+                            [disabled]="unitForm.invalid "
+                            (click)="onSubmit()">
+                        Edit
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="!data  "
+                            [disabled]="unitForm.invalid  "
+                            (click)="addNewUnit()">
+                        Add
+                    </button>
+
+                    <button mat-raised-button color="accent" class="submit-button mx-8" aria-label="ADD"
+                            (click)="close()">
+                        Close
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div>

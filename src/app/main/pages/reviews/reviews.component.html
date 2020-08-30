@@ -1,0 +1,70 @@
+<div class="page-layout simple tabbedm p-16" id="deals">
+    <h1>Meal Reviews</h1>
+
+    <!--    <mat-form-field class="w-70-p p-16">-->
+    <!--        <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">-->
+    <!--    </mat-form-field>-->
+
+    <table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p p-16" mat-table>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="rating_id" class="deal_id">
+            <th *matHeaderCellDef mat-header-cell> No.</th>
+            <td *matCellDef="let element" mat-cell> {{element.review_id}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th *matHeaderCellDef mat-header-cell> Name</th>
+            <td *matCellDef="let element"
+                mat-cell> {{element.user?.first_name}} {{element.user?.last_name}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="comment">
+            <th *matHeaderCellDef mat-header-cell> Comment</th>
+            <td *matCellDef="let element" mat-cell> {{element.comment}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="order_pakaging_rate">
+            <th *matHeaderCellDef mat-header-cell> Order Packaging</th>
+            <td *matCellDef="let element" mat-cell> {{element.order_pakaging_rate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="value_rate">
+            <th *matHeaderCellDef mat-header-cell> Value of Money</th>
+            <td *matCellDef="let element" mat-cell> {{element.value_rate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delivery_rate">
+            <th *matHeaderCellDef mat-header-cell>Delivery Time</th>
+            <td *matCellDef="let element" mat-cell> {{element.delivery_rate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quality_rate">
+            <th *matHeaderCellDef mat-header-cell> Quality Food</th>
+            <td *matCellDef="let element" mat-cell> {{element.quality_rate}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="date">
+            <th *matHeaderCellDef mat-header-cell> Date</th>
+            <td *matCellDef="let element" mat-cell> {{element.date | date:'yyyy mm dd hh:mm a'}} </td>
+        </ng-container>
+
+
+        <!-- Symbol Column -->
+
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+
+    <mat-paginator class="w-100-p" [length]="length" (click)="getReviews()"
+                   [pageSize]="pageSize"
+                   (page)="pageEvent = $event"
+    >
+    </mat-paginator>
+
+</div>

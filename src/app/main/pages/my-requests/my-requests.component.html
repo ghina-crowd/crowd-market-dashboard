@@ -1,0 +1,68 @@
+<div class="page-layout simple tabbedm p-16" id="deals">
+    <h1>Service Provider Requests</h1>
+
+    <mat-form-field class="w-70-p p-16">
+        <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
+    </mat-form-field>
+
+    <table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p p-16" mat-table>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="request_id" class="">
+            <th *matHeaderCellDef mat-header-cell> No.</th>
+            <td *matCellDef="let element" mat-cell> {{element.request_id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="request_from" class="">
+            <th *matHeaderCellDef mat-header-cell> Request from</th>
+            <td *matCellDef="let element" mat-cell> {{element.first_name}} {{element.last_name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone" class="">
+            <th *matHeaderCellDef mat-header-cell> Mobile Number</th>
+            <td *matCellDef="let element" mat-cell> {{element.phone}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type" class="">
+            <th *matHeaderCellDef mat-header-cell> Request type</th>
+            <td *matCellDef="let element" mat-cell>
+                <span *ngIf="element.type == 0"> Create New Service Provider </span>
+                <span *ngIf="element.type == 1"> Create New Deal</span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status" class="">
+            <th *matHeaderCellDef mat-header-cell> Status</th>
+            <td *matCellDef="let element" mat-cell>
+                <span *ngIf="element.status == 0">Pending</span>
+                <span *ngIf="element.status == 1">Don</span>
+                <span *ngIf="element.status == 2">Under Process</span>
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="date" class="">
+            <th *matHeaderCellDef mat-header-cell> Date</th>
+            <td *matCellDef="let element" mat-cell> {{element.created_date | date: 'yyyy-MM-dd hh-mm a'}}  </td>
+        </ng-container>
+
+        <!-- Name Column -->
+
+        <ng-container matColumnDef="action">
+            <th *matHeaderCellDef mat-header-cell> Action</th>
+            <td *matCellDef="let element" mat-cell>
+                <button aria-label="EDIT" class="submit-button" color="accent" mat-raised-button
+                        (click)="updateRequest(element)">
+                    Done
+                </button>
+            </td>
+        </ng-container>
+
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+
+
+</div>

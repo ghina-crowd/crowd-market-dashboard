@@ -1,0 +1,121 @@
+<div class="page-layout simple tabbedm p-16 profit" id="deals">
+    <h1>Profit</h1>
+    <div class="">
+        <form [formGroup]="filterForm" class="filter w-100-p ">
+
+<!--            <div class="autocomplete" *ngIf="appService.decoded.user_type == 'admin'">-->
+<!--                <input type="text" placeholder="Select Kitchen" [matAutocomplete]="auto"-->
+<!--                       (keyup)="filterKitchens($event)" formControlName="kitchen_id"-->
+
+<!--                       class="form-control p-16 ">-->
+<!--                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectKitchen($event.option.value) ;">-->
+<!--                    <mat-option class="text-uppercase" value="all"-->
+<!--                    >-->
+<!--                        All-->
+<!--                    </mat-option>-->
+<!--                    <mat-option class="text-uppercase" *ngFor="let item of kitchens" [value]="item.name"-->
+<!--                    >-->
+<!--                        {{item.name}}-->
+<!--                    </mat-option>-->
+<!--                </mat-autocomplete>-->
+
+<!--            </div>-->
+            <div class="mx-8">
+                <mat-form-field>
+                    <mat-label> Date From</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="mx-8">
+                <mat-form-field>
+                    <mat-label> Date To</mat-label>
+                    <input matInput [matDatepicker]="endpicker" formControlName="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endpicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div>
+                <button aria-label="EDIT" class="submit-button float-right w-100-p" color="accent" mat-raised-button
+                        (click)="applyFilter()">
+                    Apply Filter
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p p-16" mat-table>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id" class="">
+            <th *matHeaderCellDef mat-header-cell> No.</th>
+            <td *matCellDef="let element" mat-cell> {{element.order_id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="transaction_id" class="">
+            <th *matHeaderCellDef mat-header-cell> Transaction ID</th>
+            <td *matCellDef="let element" mat-cell> {{element.transaction_id}}  </td>
+        </ng-container>
+
+<!--        <ng-container matColumnDef="kitchen" class="">-->
+<!--            <th *matHeaderCellDef mat-header-cell> Kitchen</th>-->
+<!--            <td *matCellDef="let element" mat-cell> {{element.Kitchen.name_en}}  </td>-->
+<!--        </ng-container>-->
+
+        <ng-container matColumnDef="order_timing" class="">
+            <th *matHeaderCellDef mat-header-cell>Order Timing</th>
+            <td *matCellDef="let element" mat-cell> {{element.order_timing | date: 'MM dd yyy hh:mm a' }}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="total_price" class="">
+            <th *matHeaderCellDef mat-header-cell>Price</th>
+            <td *matCellDef="let element" mat-cell> {{element.total_price}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delivery_charges" class="">
+            <th *matHeaderCellDef mat-header-cell> delivery charges</th>
+            <td *matCellDef="let element" mat-cell> {{element.delivery_charges}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="final_price" class="">
+            <th *matHeaderCellDef mat-header-cell> Final Price</th>
+            <td *matCellDef="let element" mat-cell> {{element.delivery_charges + element.total_price}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="payment_type" class="">
+            <th *matHeaderCellDef mat-header-cell> payment type</th>
+            <td *matCellDef="let element" mat-cell>
+                <span *ngIf="element.payment_type == 1">Banking Cards</span>
+                <span *ngIf="element.payment_type == 2">Cash</span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="profit" class="">
+            <th *matHeaderCellDef mat-header-cell> Profit</th>
+            <td *matCellDef="let element" mat-cell> {{element?.Profit?.profit}}  </td>
+        </ng-container>
+
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+    <mat-paginator class="w-100-p" [length]="length" (click)="filter.page = +filter.page + 1 ;profits()"
+                   [pageSize]="filter.size"
+                   (page)="pageEvent = $event"
+    >
+    </mat-paginator>
+
+<!--    <div class="my-16 bg-green" *ngIf="appService.decoded.user_type === 'admin'">-->
+<!--        <div class="p-8">Final Amount:  {{amount}}   AED</div>-->
+<!--    </div>-->
+<!--    <div class="my-16 bg-golden" *ngIf="appService.decoded.user_type === 'admin'">-->
+<!--        <div class="p-8">Aklbetna Profit:  {{profit}}   AED</div>-->
+<!--    </div>-->
+<!--    <div class="my-16 bg-blue">-->
+<!--        <div class="p-8">Kitchen Profit:  {{amount - profit}}   AED</div>-->
+<!--    </div>-->
+
+
+</div>

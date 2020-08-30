@@ -1,0 +1,97 @@
+<div class="page-layout simple tabbedm p-16 kitchens" id="deals">
+    <h1>Stores</h1>
+    <div class="filter  p-16">
+        <div class="filter-left w-50-p">
+            <div class="w-50-p">
+                <mat-form-field class="w-100-p   filter">
+                    <input (keyup)="applyFilter($event.target.value)" matInput
+                           placeholder="Search By Title" class="w-100-p">
+                </mat-form-field>
+            </div>
+<!--            <div class="">-->
+<!--                <form [formGroup]="filterForm" class="text-center  ">-->
+
+<!--                    <input type="text" placeholder="Select Category" [matAutocomplete]="auto"-->
+<!--                           formControlName="category"-->
+<!--                           class="form-control    " (keyup)="search()">-->
+<!--                    <mat-autocomplete #auto="matAutocomplete">-->
+<!--                        <mat-option class="text-uppercase" value="0"-->
+<!--                                    (click)=" applyFilter('')">-->
+<!--                            All-->
+<!--                        </mat-option>-->
+<!--                        <mat-option class="text-uppercase" *ngFor="let item of categories" [value]="item.category_id"-->
+<!--                                    (click)="  applyFilter(item)">-->
+<!--                            {{item.name_en}}-->
+<!--                        </mat-option>-->
+<!--                    </mat-autocomplete>-->
+<!--                </form>-->
+<!--            </div>-->
+        </div>
+        <div>
+            <button aria-label="EDIT" class="submit-button float-right w-100-p" color="accent" mat-raised-button
+                    routerLink="/pages/store/0">
+                <img class="icone-plus " src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add New Store
+            </button>
+        </div>
+
+    </div>
+    <table [dataSource]="dataSource" class="mat-elevation-z8 w-100-p p-16" mat-table>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="farmer_id" class="">
+            <th *matHeaderCellDef mat-header-cell> No.</th>
+            <td *matCellDef="let element" mat-cell> {{element.farmer_id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name_en" class="">
+            <th *matHeaderCellDef mat-header-cell> English Title</th>
+            <td *matCellDef="let element" mat-cell> {{element.title_en}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name_ar" class="">
+            <th *matHeaderCellDef mat-header-cell>Arabic Title</th>
+            <td *matCellDef="let element" mat-cell> {{element.title_ar}}  </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="image" class="">
+            <th *matHeaderCellDef mat-header-cell> Photo</th>
+            <td *matCellDef="let element" mat-cell><img [src]="restService.baseUrl + element?.image" alt=""></td>
+        </ng-container>
+
+<!--        <ng-container matColumnDef="menu" class="">-->
+<!--            <th *matHeaderCellDef mat-header-cell> Menu</th>-->
+<!--            <td *matCellDef="let element" mat-cell><a [routerLink]="'/pages/menu/' + element.farmer_id">Go To Menu</a></td>-->
+<!--        </ng-container>-->
+
+        <ng-container matColumnDef="status" class="">
+            <th *matHeaderCellDef mat-header-cell> Status</th>
+            <td *matCellDef="let element" mat-cell>
+                <span class="unactive" *ngIf="element.active == 0">Not Active</span>
+                <span class="active" *ngIf="element.active == 1">Active</span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th *matHeaderCellDef mat-header-cell> Action</th>
+            <td *matCellDef="let element" mat-cell>
+                <button aria-label="EDIT" class="submit-button" color="accent" mat-raised-button
+                        [routerLink]="'/pages/store/' + element.farmer_id"
+                >
+                    Edit
+                </button>
+            </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+    <mat-paginator class="w-100-p" [length]="length" (click)="getFarmers()"
+                   [pageSize]="filter.size"
+                   (page)="pageEvent = $event"
+    >
+    </mat-paginator>
+
+</div>
